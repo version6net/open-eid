@@ -16,9 +16,11 @@ Parameetrite selgitus:
 |`-e DISPLAY`                                     | X11 asukoht (VAJALIK)
 |`-v $HOME/Documents:/home/openeid`               | dokumendikausta konteinerile ligipääsetavaks. kasutada võib mistahes kataloogi
 |`-v $HOME/.Xauthority:/home/openeid/.Xauthority` | ligipääs masina X11-le (VAJALIK)
-|`--net=host`                                     | ilma selleta ei saa rakendust näidata (localhost ühendus - VAJALIK) 
+|`--net=host`                                     | ilma selleta ei saa rakendust näidata (localhost ühendus - VAJALIK)
 |`-v /dev/bus/usb:/dev/bus/usb`                   | ligipääs USB kaardilugejale, pole vaja mID jaoks
-|--privileged                                     | samuti vajalik kaardilugeja jaoks, pole vaja mID jaoks
+|`--privileged`                                   | samuti vajalik kaardilugeja jaoks, pole vaja mID jaoks
+
+Kui tead oma ID-kaardi lugeja aadressi (vt `lsusb`), siis pole vaja parameetreid `-v /dev/bus/usb:/dev/bus/usb` ja `--privileged` vaid piisab parameetrist `--device=/dev/bus/usb/<bus>/<dev>`.
 
 Vaikimisi käivitatakse DigiDoc klient. ID-kaardi utiliidi kasutamiseks, lisa parameeter `qesteidutil`
 
