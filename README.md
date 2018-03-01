@@ -43,4 +43,4 @@ dockerbuild -t test/openeid .
 
 Dockeri kasutamine on ainuke lihtne viis ID-kaardi töölesaamiseks Linuxites, mida ametlikult ei toetata nagu näiteks opesuse (testitud), redhat/centos või arch. Aga võid seda ka Ubntuga kasutada, et oma masin mittevajalikest pakkidest puhas hoida.
 
-Tegemist on Ubuntu 17.04 tõmmisega, mille peale on paigaldatud ID-kaardi tarkvara [ID.ee lehel](https://id.ee/index.php?id=34228) näidatud viisil (skripti kasutades). Tulevikus võib ka midagi kergekaalulisemat proovida.
+Tegemist on Ubuntu 17.10 tõmmisega, mille peale on paigaldatud ID-kaardi tarkvara [ID.ee lehel](https://id.ee/index.php?id=34228) näidatud viisil (skripti kasutades). Tulevikus võib ka midagi kergekaalulisemat proovida.
