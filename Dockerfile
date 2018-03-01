@@ -17,6 +17,9 @@ ENV LANG et_EE.UTF-8
 RUN useradd -m openeid
 RUN echo "openeid ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
+
 USER openeid
 
 RUN curl -s https://installer.id.ee/media/install-scripts/install-open-eid.sh | sed 's/sudo apt-get install/sudo apt-get install -y/' | bash -s \
@@ -25,5 +28,4 @@ RUN curl -s https://installer.id.ee/media/install-scripts/install-open-eid.sh | 
 WORKDIR /home/openeid
 VOLUME [ "/home/openeid" ]
 
-COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
