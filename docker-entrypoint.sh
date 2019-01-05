@@ -9,7 +9,7 @@ fi
 sudo pcscd
 
 if [ "$1" == "" ]; then
-	exec qdigidocclient
+	exec qdigidoc4
 fi
 
 exec "$@"

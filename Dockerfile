@@ -1,4 +1,4 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.10
 MAINTAINER cougar@random.ee
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get install -y curl \
     && apt-get install -y sudo \
     && apt-get install -y lsb-release \
-    && apt-get install -y apt-transport-https libnss3-tools opensc pcscd libxml2 zlib1g fonts-liberation libgcc1 libldap-2.4-2 libpcsclite1 libqt5core5a libqt5gui5 libqt5network5 libqt5printsupport5 libqt5widgets5 libssl1.0.0 libstdc++6 libzip4 \
+    && apt-get install -y apt-transport-https libnss3-tools opensc pcscd libxml2 zlib1g fonts-liberation libgcc1 libldap-2.4-2 libpcsclite1 libqt5core5a libqt5gui5 libqt5network5 libqt5printsupport5 libqt5widgets5 libssl1.0.0 libstdc++6 libzip4 build-essential gnupg2 \
     && sudo rm -rf /var/lib/apt/lists/*
 
 RUN localedef -i et_EE -c -f UTF-8 -A /usr/share/locale/locale.alias et_EE.UTF-8
