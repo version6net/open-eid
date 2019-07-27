@@ -5,8 +5,10 @@ Kui omad arvutis linuxit, mis pole Ubuntu/Debian/Mint, siis saad siin oleva Dock
 
 ## Kasutamine
 
+ID-kaardi kasutamiseks ühenda kaardilugeja enne konteineri käivitamist!
+
 ```shell
-docker run --rm -e DISPLAY -v $HOME/Documents:/home/openeid -v $HOME/.Xauthority:/home/openeid/.Xauthority --net=host -v /dev/bus/usb:/dev/bus/usb --privileged --security-opt seccomp:unconfined v6net/open-eid
+docker run --rm -e DISPLAY -v $HOME/.docker-root-openeid:/home/openeid -v $HOME/.Xauthority:/home/openeid/.Xauthority -v $HOME/Documents:/home/openeid/Documents --hostname $(uname -n) -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/dri:/dev/dri --device /dev/bus/usb --init v6net/open-eid
 ```
 
 Parameetrite selgitus:
@@ -14,23 +16,23 @@ Parameetrite selgitus:
 |                  parameeter                     |                                     selgitus
 |-------------------------------------------------|-------------------------------------------------------------------------------
 |`-e DISPLAY`                                     | X11 asukoht (VAJALIK)
-|`-v $HOME/Documents:/home/openeid`               | dokumendikausta konteinerile ligipääsetavaks. kasutada võib mistahes kataloogi
+|`-v $HOME/.docker-root-openeid:/home/openeid`    | konteineri kasutaja kodukataloog. vajalik seadistuste meeldejätmiseks
 |`-v $HOME/.Xauthority:/home/openeid/.Xauthority` | ligipääs masina X11-le (VAJALIK)
-|`--net=host`                                     | ilma selleta ei saa rakendust näidata (localhost ühendus - VAJALIK)
+|`-v $HOME/Documents:/home/openeid/Documents`     | dokumendikausta konteinerile ligipääsetavaks. kasutada võib mistahes kataloogi
+|`--hostname $(uname -n)`                         | annab konteinerile masina nime, et X11 ligipääs töötaks (VAJALIK)
+|`-v /tmp/.X11-unix:/tmp/.X11-unix`               | X11 ligipääs (VAJALIK)
+|`-v /dev/dri:/dev/dri`                           | otseligipääs graafikakaardile (Direct Rendering Infrastructure)
 |`-v /dev/bus/usb:/dev/bus/usb`                   | ligipääs USB kaardilugejale, pole vaja mID jaoks
-|`--privileged`                                   | samuti vajalik kaardilugeja jaoks, pole vaja mID jaoks
-|`--security-opt seccomp:unconfined`              | alates versioonist 4 ei tööta Qt mingi platform plugin
 
-Kui tead oma ID-kaardi lugeja aadressi (vt `lsusb`), siis pole vaja parameetreid `-v /dev/bus/usb:/dev/bus/usb` ja `--privileged` vaid piisab parameetrist `--device=/dev/bus/usb/<bus>/<dev>`.
+Kui tead oma ID-kaardi lugeja aadressi (vt `lsusb`), siis pole vaja anda ligipääsu kõigile USB seadmetele võtmega `-v /dev/bus/usb:/dev/bus/usb` vaid piisab parameetrist `--device=/dev/bus/usb/<bus>/<dev>`.
 
 Kui kasutad m-ID'd, siis pole neid parameetreid üldse vaja.
 
 Vaikimisi käivitatakse DigiDoc klient `qdigidoc4`. Ajatembeldamise kasutamiseks, lisa parameeter `qdigidoc-tera-gui`
 
 ```shell
-docker run --rm -e DISPLAY -v $HOME/Douments:/home/openeid -v $HOME/.Xauthority:/home/openeid/.Xauthority --net=host -v /dev/bus/usb:/dev/bus/usb --privileged --security-opt seccomp:unconfined v6net/open-eid qdigidoc-tera-gui
+docker run --rm -e DISPLAY -v $HOME/.docker-root-openeid:/home/openeid -v $HOME/.Xauthority:/home/openeid/.Xauthority -v $HOME/Documents:/home/openeid/Documents --hostname $(uname -n) -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/dri:/dev/dri --device /dev/bus/usb --init v6net/open-eid qdigidoc-tera-gui
 ```
-Kaardilugeja kasutamisel, sisesta see USB porti enne konteineri käivitamist.
 
 ## Dockeri tõmmise tekitamine
 
@@ -46,8 +48,6 @@ docker build -t test/openeid .
 
 Dockeri kasutamine on ainuke lihtne viis ID-kaardi töölesaamiseks Linuxites, mida ametlikult ei toetata nagu näiteks opesuse (testitud), redhat/centos või arch. Aga võid seda ka Ubntuga kasutada, et oma masin mittevajalikest pakkidest puhas hoida.
 
-Tegemist on Ubuntu 18.10 tõmmisega, mille peale on paigaldatud ID-kaardi tarkvara [ID.ee lehel](https://id.ee/index.php?id=34228) näidatud viisil (skripti kasutades). Tulevikus võib ka midagi kergekaalulisemat proovida.
-
-Kui keegi välja mõtleb, kuidas `--security-opt seccomp:unconfined` suvandist lahti saada, siis andku teada :-)
+Tegemist on Ubuntu 18.04 tõmmisega, mille peale on paigaldatud ID-kaardi tarkvara [ID.ee lehel](https://id.ee/index.php?id=34228) näidatud viisil (skripti kasutades). Tulevikus võib ka midagi kergekaalulisemat proovida.
 
 Seda konteinetit tuleks kuskilt otsast väiksemaks ka teha. Praegu jääb sinna sisse kogu arenduskeskkond.
