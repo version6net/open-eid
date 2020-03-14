@@ -22,11 +22,12 @@ RUN localedef -i et_EE -c -f UTF-8 -A /usr/share/locale/locale.alias et_EE.UTF-8
 
 ENV LANG et_EE.UTF-8
 
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 USER 1000:1000
 WORKDIR /home/openeid
 
 RUN curl -s https://installer.id.ee/media/install-scripts/install-open-eid.sh | sed 's/sudo apt-get install/sudo apt-get install -y/' | bash -x -s \
     && sudo rm -rf /var/lib/apt/lists/*
-
-COPY docker-entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
