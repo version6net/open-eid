@@ -31,5 +31,6 @@ WORKDIR /home/openeid
 
 RUN curl -s https://installer.id.ee/media/install-scripts/install-open-eid.sh \
     | sed 's/sudo apt-get install/sudo apt-get install -y/' \
+    | sed 's/read -p.*/policy=y/' \
     | bash -x -s \
     && sudo rm -rf /var/lib/apt/lists/*
