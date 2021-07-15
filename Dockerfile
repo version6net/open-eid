@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 MAINTAINER cougar@random.ee
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get install -y lsb && \
     apt-get install -y libqt5core5a libqt5gui5 libqt5network5 libqt5widgets5 libqt5printsupport5 libqt5svg5 libqt5widgets5 && \
     apt-get install -y libnss3-tools libxerces-c3.2 libxalan-c111 && \
-    apt-get install -y fonts-liberation python-nautilus libzip4 libssl1.0.0 && \
+    apt-get install -y fonts-liberation python-nautilus libzip5 && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd -g 1000 openeid && \
     useradd -u 1000 -g 1000 -m openeid && \
