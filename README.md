@@ -28,10 +28,10 @@ Kui tead oma ID-kaardi lugeja aadressi (vt `lsusb`), siis pole vaja anda ligipä
 
 Kui kasutad m-ID'd, siis pole neid parameetreid üldse vaja.
 
-Vaikimisi käivitatakse DigiDoc klient `qdigidoc4`. Ajatembeldamise kasutamiseks, lisa parameeter `qdigidoc-tera-gui`
+Vaikimisi käivitatakse DigiDoc klient `qdigidoc4`. digidoc-tool kasutamiseks lisa see parameetriks
 
 ```shell
-docker run --rm -e DISPLAY -v $HOME/.docker-root-openeid:/home/openeid -v $HOME/.Xauthority:/home/openeid/.Xauthority -v $HOME/Documents:/home/openeid/Documents --hostname $(uname -n) -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/dri:/dev/dri --device /dev/bus/usb --init v6net/open-eid qdigidoc-tera-gui
+docker run -ti --rm -e DISPLAY -v $HOME/.docker-root-openeid:/home/openeid -v $HOME/.Xauthority:/home/openeid/.Xauthority -v $HOME/Documents:/home/openeid/Documents --hostname $(uname -n) -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/dri:/dev/dri --device /dev/bus/usb --init v6net/open-eid digidoc-tool
 ```
 
 ## Dockeri tõmmise tekitamine
