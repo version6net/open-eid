@@ -2,9 +2,9 @@ FROM ubuntu:22.04
 LABEL org.opencontainers.image.authors="cougar@random.ee"
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && \
-    apt-get upgrade --yes && \
-    apt-get install --no-install-recommends --yes ca-certificates curl gpg locales sudo tzdata && \
+RUN apt update && \
+    apt upgrade --yes && \
+    apt install --no-install-recommends --yes ca-certificates curl gpg locales sudo tzdata && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd -g 1000 openeid && \
     useradd -u 1000 -g 1000 -m openeid && \
