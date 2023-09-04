@@ -24,7 +24,9 @@ WORKDIR /home/openeid
 
 RUN curl -s https://installer.id.ee/media/install-scripts/install-open-eid.sh \
     | sed 's/^\(distro\)=.*/\1=ubuntu/; s/^\(release\)=.*/\1=22.04/; s/^\(codename\)=.*/\1=jammy/; s/lsb_release/true/' \
-    | sed 's/sudo apt-get install/sudo apt-get install -y/' \
+    | sed 's/sudo apt install/sudo apt install -y/' \
     | sed 's/read -p.*/policy=y/' \
+    | sed 's/sudo systemctl/# sudo systemctl/' \
+    | sed 's/xdg-open/true xdg-open/' \
     | bash -x -s \
     && sudo rm -rf /var/lib/apt/lists/*
