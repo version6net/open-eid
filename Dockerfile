@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-MAINTAINER cougar@random.ee
+LABEL org.opencontainers.image.authors="cougar@random.ee"
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
