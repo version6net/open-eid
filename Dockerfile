@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 LABEL org.opencontainers.image.authors="cougar@random.ee"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt upgrade --yes && \
     apt install --no-install-recommends --yes ca-certificates curl gpg locales sudo tzdata && \
@@ -12,8 +12,8 @@ RUN apt update && \
     localedef -i et_EE -c -f UTF-8 -A /usr/share/locale/locale.alias et_EE.UTF-8 && \
     ln -sf /usr/share/zoneinfo/Europe/Tallinn /etc/localtime
 
-ENV LANG et_EE.UTF-8
-ENV TZ Europe/Tallinn
+ENV LANG=et_EE.UTF-8
+ENV TZ=Europe/Tallinn
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
